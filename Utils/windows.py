@@ -67,7 +67,12 @@ class NewReservationWindow(tk.Frame):
         self.root.iconbitmap(
             'C:\\Users\marti\OneDrive\\1. Documenten\\4. Studie\Haagse Hogeschool\ICT - deeltijd\Semester 1\Introduction Python\Eindopdracht - Biker - Huurovereenkomst\Biker-huurovereenkomsten\Icons\\biker_logo.ico')
         center_window(window_width, window_height)
+        self.to_home_button = tk.Button(self, text="Home", font=button_font_large, width=5, padx=5, pady=5, bg=button_color,
+                                   command=self.go_to_home)
+        self.to_home_button.grid(row=0, column=3, padx=10, pady=10)
+
         self.create_reservation_fields()
+
         self.make_reservation_button = tk.Button(self, text="Reserveer", font=button_font_large, width=10, padx=5,
                                                  pady=5, bg='#AEE4A0', command=self.save_to_csv)
         self.make_reservation_button.grid(row=10, column=3, padx=10, pady=10, sticky="we")
@@ -79,9 +84,7 @@ class NewReservationWindow(tk.Frame):
         # spacing between rows
         pad_y = 10
 
-        to_home_button = tk.Button(self, text="Home", font=button_font_large, width=5, padx=5, pady=5, bg=button_color,
-                                   command=self.go_to_home)
-        to_home_button.grid(row=0, column=3, padx=10, pady=10)
+
 
         email_label = tk.Label(self, text="E-mail", width=25)
         email_label.grid(row=1, column=0, sticky="w")
@@ -118,13 +121,30 @@ class NewReservationWindow(tk.Frame):
         self.city_entry = tk.Entry(self)
         self.city_entry.grid(row=4, column=3, sticky="we", pady=pad_y)
 
-        # TO DO: Welke fiets wil je huren + aantallen dropdown
-        what_bike_label = tk.Label(self, text="Welke fiets wil je huren?", width=25, font=14)
-        what_bike_label.grid(row=5, column=0, columnspan=3, sticky='w')
+        man_bike_label = tk.Label(self, text="Aantal herenfietsen", width=25)
+        man_bike_label.grid(row=5, column=0, columnspan=2, sticky='w')
+        self.num_man_bikes_entry = tk.Entry(self)
+        self.num_man_bikes_entry.grid(row=5, column=1, columnspan=2, sticky='w', pady=pad_y)
 
-        # TO DO: Welke accesoires wil je huren + aantallen dropdown
-        what_accessories_label = tk.Label(self, text="Welke accesoires wil je huren?", width=25, font=14)
-        what_accessories_label.grid(row=7, column=0, columnspan=3, sticky='w')
+        woman_bike_label = tk.Label(self, text="Aantal vrouwenfietsen", width=25)
+        woman_bike_label.grid(row=5, column=2, columnspan=2, sticky='w')
+        self.num_woman_bikes_entry = tk.Entry(self)
+        self.num_woman_bikes_entry.grid(row=5, column=3, columnspan=2, sticky='w', pady=pad_y)
+
+        E_bike_label = tk.Label(self, text="Aantal Elektrische fietsen", width=25)
+        E_bike_label.grid(row=6, column=0, columnspan=2, sticky='w')
+        self.num_E_bikes_entry = tk.Entry(self)
+        self.num_E_bikes_entry.grid(row=6, column=1, columnspan=2, sticky='w', pady=pad_y)
+
+        child_bicycle_seat_label = tk.Label(self, text="Aantal kinderzitjes", width=25)
+        child_bicycle_seat_label.grid(row=7, column=0, columnspan=2, sticky='w')
+        self.num_child_seat_entry = tk.Entry(self)
+        self.num_child_seat_entry.grid(row=7, column=1, columnspan=2, sticky='w', pady=pad_y)
+
+        helmet_label = tk.Label(self, text="Aantal helmen", width=25)
+        helmet_label.grid(row=7, column=2, columnspan=2, sticky='w')
+        self.num_helmets_entry = tk.Entry(self)
+        self.num_helmets_entry.grid(row=7, column=3, columnspan=2, sticky='w', pady=pad_y)
 
         insurance_label = tk.Label(self, text="verzekeringsnummer", width=25)
         insurance_label.grid(row=8, column=0)

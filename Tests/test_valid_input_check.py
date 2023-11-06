@@ -32,8 +32,25 @@ class TestEntryIsZipcode(unittest.TestCase):
 
 class TestEntryIsDate(unittest.TestCase):
     def test_entry_is_date(self):
-        self.assertEqual(entry_is_date("11-11-2023"), "11-11-2023", "")
+        self.assertEqual(entry_is_date("11-11-2024"), "11-11-2024", "correct date isn't recognized")
+        self.assertEqual(entry_is_date("11/11/2024"), "11-11-2024", "function doesn't change '/' to '-'")
+        self.assertEqual(entry_is_date("11/25/2023"), invalid_entry_return_value, "No error when invalid date is entered")
 
+class TestBikeRentEntryIsNum(unittest.TestCase):
+    def test_entry_bike_rent_is_num(self):
+        self.assertEqual(entry_bike_rent_is_number(2), 2, "Doesn't recognize valid input")
+        self.assertEqual(entry_bike_rent_is_number(""), 0, "Doesn't convert emptycell to zero")
+        self.assertEqual(entry_bike_rent_is_number("hallo"), invalid_entry_return_value, "Doesn't return invalid_value when a string is enterd")
+
+class TestBikeIsRented(unittest.TestCase):
+    def test_bike_is_rented(self):
+        self.assertEqual(bike_is_rented(1,0,0), 1, "Doesn't recognize when at least one bike is rented")
+        self.assertEqual(bike_is_rented(0, 1, 0), 1, "Doesn't recognize when at least one bike is rented")
+        self.assertEqual(bike_is_rented(0,0,1), 1, "Doesn't recognize when at least one bike is rented")
+        self.assertEqual(bike_is_rented(1, 1, 1), 1, "Doesn't recognize when at least one bike is rented")
+        self.assertEqual(bike_is_rented(0, 0, 0), 0, "Doesn't recognize when NO bike is rented")
 
 if __name__ == '__main__':
     unittest.main()
+
+
