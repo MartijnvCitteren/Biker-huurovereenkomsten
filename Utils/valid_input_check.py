@@ -20,7 +20,7 @@ def entry_field_is_number(get_entry):
         return invalid_entry_return_value
 
     else:
-        return integer_result
+        return str(integer_result)
 
 
 def entry_field_is_not_empty(get_entry):
@@ -78,6 +78,7 @@ def entry_is_date(get_entry):
                             "De door u gekozen datum is ongeldig")
         return invalid_entry_return_value
 
+
 def entry_bike_rent_is_number(get_entry):
     if get_entry == "":
         get_entry = 0
@@ -85,6 +86,7 @@ def entry_bike_rent_is_number(get_entry):
 
     else:
         return entry_field_is_number(get_entry)
+
 
 def bike_is_rented(get_entry_1, get_entry_2, get_entry_3):
     if (entry_bike_rent_is_number(get_entry_1) == 0) and (entry_bike_rent_is_number(get_entry_2) == 0) and (entry_bike_rent_is_number(get_entry_3) == 0):
