@@ -204,18 +204,24 @@ class UpdateReservationWindow(tk.Frame):
         NewReservationWindow.create_reservation_fields(self,1)
 
         self.delete_button = tk.Button(self, text="Verwijder", font=button_font_large, width=10, padx=5, pady=5,
-                                                 bg='#B06D74')
+                                                 bg='#B06D74', command=self.delete_data)
         self.delete_button.grid(row=11, column=2, padx=10, pady=10)
         self.make_reservation_button = tk.Button(self, text="Wijzig", font=button_font_large, width=10, padx=5, pady=5,
-                                                 bg='#AEE4A0')
+                                                 bg='#AEE4A0', command=self.update_data)
         self.make_reservation_button.grid(row=11, column=3, padx=10, pady=10)
         self.grid()
 
-    def read_file(self):
-        crud.read_csv(self)
 
     def search_and_fil(self):
         crud.fill_update_fields(self)
+
+    def delete_data(self):
+        crud.delete_row(self)
+        NewReservationWindow.go_to_home(self)
+
+    def update_data(self):
+        crud.update(self)
+        NewReservationWindow.go_to_home(self)
 
     def to_home(self):
         NewReservationWindow.go_to_home(self)

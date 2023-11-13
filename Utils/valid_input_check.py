@@ -37,7 +37,8 @@ def entry_field_is_email(get_entry):
     # "regular-expressions-cookbook - O'reilly". Therefore only decided to check if there is
     # at least an "@" and 1 "." in the entry.
     if (re.search(("@"), get_entry)) and (re.search(("\."), get_entry)):
-        return get_entry.strip()
+        get_entry = get_entry.strip()
+        return get_entry.lower()
 
     else:
         messagebox.showinfo("Error - geen email", "Geldig email adres ontbreekt")
