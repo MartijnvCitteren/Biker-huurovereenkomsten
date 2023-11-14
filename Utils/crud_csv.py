@@ -10,7 +10,7 @@ import Utils.row_id as id
 csv_file = "Database_biker.csv"
 
 # headers
-headers = ["ID",
+headers = ["Klantnummer",
            "e-mail",
            "Voornaam",
            "Achternaam",
@@ -30,10 +30,9 @@ headers = ["ID",
            "Reserveringsdatum"
            ]
 
-
 # Create - write to the CSV file
 def write_to_csv(self):
-    input_dict = {"ID": id.create_id(csv_file),
+    input_dict = {"Klantnummer": id.create_id(csv_file),
                   "e-mail": valid.entry_field_is_email(self.email_entry.get()),
                   "Voornaam": valid.entry_field_is_not_empty(self.first_name_entry.get()),
                   "Achternaam": valid.entry_field_is_not_empty(self.family_name_entry.get()),
@@ -135,31 +134,55 @@ def indentify_similar_row_in_csv(self):
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
 
+        row = 0
         for dict in reader:
             for value in dict.values():
                 if ((value == check_email and check_postcode and check_verzekeringsnummer) or
                         (value == check_email and check_verzekeringsnummer and check_voornaam) or
                         (value == check_achternaam and check_straatnaam and check_postcode)):
                     file.close()
-                    return dict['ID']
+                    return dict['Klantnummer'], row
+            row = row + 1
         print("niks gevonden!")
         file.close()
 
 
 def delete_row(self):
-    id_to_delete = int((indentify_similar_row_in_csv(self)))
+    id_to_delete = int((indentify_similar_row_in_csv(self)[0]))
     df = pd.read_csv(csv_file)
-    df = df.drop(df[df.ID == id_to_delete].index)
+    df = df.drop(df[df.Klantnummer == id_to_delete].index)
     df.to_csv(csv_file, index=False)
 
     messagebox.showinfo("Gegevens verwijdert", "Reservering is succesvol verwijdert")
 
 
 def update(self):
-    id_to_update = int((indentify_similar_row_in_csv(self)))
+    id_to_update = int((indentify_similar_row_in_csv(self)[0]))
+    row_to_overwrite = int((indentify_similar_row_in_csv(self)[1]))
+
+
+
     df = pd.read_csv(csv_file)
-    df.update(df[df.ID == id_to_update].index)
-    print(df)
+
+    df.loc[row_to_overwrite, "Klantnummer"] = id_to_update
+    df.loc[row_to_overwrite, "e-mail"] = valid.entry_field_is_email(self.email_entry.get())
+    df.loc[row_to_overwrite, "Voornaam"] = valid.entry_field_is_not_empty(self.first_name_entry.get())
+    df.loc[row_to_overwrite, "Achternaam"] = valid.entry_field_is_not_empty(self.family_name_entry.get())
+    df.loc[row_to_overwrite, "Straat"] = valid.entry_field_is_not_empty(self.street_name_entry.get())
+    df.loc[row_to_overwrite, "Huisnummer"] = valid.entry_field_is_number(self.adress_num_entry.get())
+    df.loc[row_to_overwrite, "Postcode"] = valid.entry_field_is_zipcode(self.zip_code_entry.get())
+    df.loc[row_to_overwrite, "Woonplaats"] = valid.entry_field_is_not_empty(self.city_entry.get())
+    df.loc[row_to_overwrite, "Herenfiets aantal"] = valid.entry_bike_rent_is_number(self.num_man_bikes_entry.get())
+    df.loc[row_to_overwrite, "Vrouwenfiets aantal"] = valid.entry_bike_rent_is_number(self.num_woman_bikes_entry.get())
+    df.loc[row_to_overwrite, "E-bike aantal"] = valid.entry_bike_rent_is_number(self.num_E_bikes_entry.get())
+    df.loc[row_to_overwrite, "Kinderzitjes aantal"] = valid.entry_bike_rent_is_number(self.num_child_seat_entry.get())
+    df.loc[row_to_overwrite, "Helmen aantal"] = valid.entry_bike_rent_is_number(self.num_helmets_entry.get())
+    df.loc[row_to_overwrite, "Verzekeringsnummer"] = valid.entry_field_is_number(self.insurance_entry.get())
+    df.loc[row_to_overwrite, "Medewerkersnummer"] = valid.entry_field_is_number(self.employee_entry.get())
+    df.loc[row_to_overwrite, "Start-datum huur"] = valid.entry_is_date(self.start_rent_entry.get())
+    df.loc[row_to_overwrite, "Eind-datum huur"] = valid.entry_is_date(self.end_rent_entry.get())
+    df.loc[row_to_overwrite, "Reserveringsdatum"] = valid.entry_is_date(self.reservation_date_entry.get())
+
     df.to_csv(csv_file, index=False)
 
     messagebox.showinfo("Gegevens Ge-update", "Reservering is succesvol aangepast")

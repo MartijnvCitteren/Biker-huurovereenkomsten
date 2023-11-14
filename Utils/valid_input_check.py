@@ -20,7 +20,7 @@ def entry_field_is_number(get_entry):
         return invalid_entry_return_value
 
     else:
-        return str(integer_result)
+        return integer_result
 
 
 def entry_field_is_not_empty(get_entry):
