@@ -1,0 +1,19 @@
+Klantnummer,e-mail,Voornaam,Achternaam,Straat,Huisnummer,Postcode,Woonplaats,Herenfiets aantal,Vrouwenfiets aantal,E-bike aantal,Kinderzitjes aantal,Helmen aantal,Verzekeringsnummer,Medewerkersnummer,Start-datum huur,Eind-datum huur,Aantal huur dagen,Reserveringsdatum
+1,laura@hotmail.com,Laura,Jansen,Van Goghlaan,5,5678CD,Rotterdam,0,1,1,2,1,4567,45,16-12-2023,20-12-2023,4,12-12-2023
+2,jan@gmail.com,Jan B G,Visser,Schubertplein,23,6789GH,Eindhoven,0,1,1,0,0,1234,19,25-10-2023,30-10-2023,6,21-10-2023
+3,maria@hotmail.com,Maria,Koopman,Rembrandtlaan,9,2345IJ,Nijmegen,1,0,1,1,0,6543,33,28-10-2023,05-11-2023,9,25-10-2023
+4,peter@gmail.com,Peter,Schmidt,Kerkstraat,55,3456JK,Den Haag,0,1,0,0,1,9876,10,24-12-2023,24-12-2023,1,22-12-2023
+5,sara@outlook.nl,Sara,Verhoeven,Vermeerstraat,8,1234CD,Rotterdam,1,0,0,0,0,2345,14,15-11-2023,17-11-2023,2,12-11-2023
+6,thomas@live.nl,Thomas,Vanderbilt,Beatrixlaan,55,5678AB,Utrecht,0,1,0,0,1,8765,22,18-11-2023,21-11-2023,3,15-11-2023
+7,emma@hotmail.com,Emma,Willemse,Hendriklaan,10,2345DE,Groningen,1,0,1,0,0,5432,7,20-11-2023,22-11-2023,3,17-11-2023
+8,max@gmail.com,Max,Bosch,Koningsstraat,18,3456LM,Eindhoven,0,1,0,1,1,7654,29,25-11-2023,30-11-2023,6,21-11-2023
+9,lisa@hotmail.com,Lisa,Peeters,Verlengde Gracht,2,4567MN,Amsterdam,1,0,1,0,0,8765,36,28-11-2023,05-12-2023,7,25-11-2023
+10,michael@outlook.nl,Michael,De Graaf,Prinsessenplein,7,1234EF,Delft,0,1,1,0,0,5432,17,01-12-2023,06-12-2023,6,30-11-2023
+11,lucy@live.nl,Lucy,Jonker,Rembrandtplein,25,5678OP,Den Bosch,1,0,0,0,1,2345,24,05-12-2023,09-12-2023,4,05-12-2023
+12,david@gmail.com,David,Hendriks,Wilhelminastraat,12,2345IJ,Haarlem,0,1,1,0,0,9876,32,10-12-2023,15-12-2023,5,09-12-2023
+13,julia@hotmail.com,Julia,Brouwer,Koningsweg,4,4567KL,Rotterdam,1,0,0,1,0,2345,15,16-1-2024,20-1-2024,5,15-12-2023
+14,michael@outlook.nl,Michael,Meijer,Van Goghstraat,15,3456AB,Utrecht,0,1,0,0,1,5432,21,21-12-2023,25-12-2023,4,20-12-2023
+15,eva@live.nl,Eva,Kuipers,Hoofdstraat,9,6789MN,Groningen,1,0,0,0,0,8765,18,26-12-2023,30-12-2023,4,25-12-2023
+16,emily@gmail.com,Emily,de Bruin,Hofjesplantsoen,89,1234AB,Emmen,1,0,0,0,0,123,987,12-12-2023,14-12-2023,2,11-12-2023
+17,bert90@hotmail.com,Bert,de Boer,achterafstraat,14,1234KL,Leiden,2,0,0,0,0,123,456,14-12-2023,17-12-2023,3,11-12-2023
+18,maria@gmail.com,Maria,de Boer,Hoge Heuvel,66,2569KB,Amsterdam,0,3,0,2,0,123,5698,12-12-2023,18-12-2023,6,1-12-2023
