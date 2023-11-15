@@ -174,7 +174,7 @@ def update(self):
     if input_is_valid:
         df = pd.read_csv(csv_file)
 
-        df.loc[row_to_overwrite, "Klantnummer"] = generate.create_id
+        df.loc[row_to_overwrite, "Klantnummer"] = generate.create_id(csv_file)
         df.loc[row_to_overwrite, "e-mail"] = valid.entry_field_is_email(self.email_entry.get())
         df.loc[row_to_overwrite, "Voornaam"] = valid.entry_field_is_not_empty(self.first_name_entry.get())
         df.loc[row_to_overwrite, "Achternaam"] = valid.entry_field_is_not_empty(self.family_name_entry.get())
