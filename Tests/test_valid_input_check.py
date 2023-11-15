@@ -1,5 +1,5 @@
 import unittest
-from Utils.valid_input_check import *
+from Utils.valid_input_functionalities import *
 
 
 class TestEntryIsNumber(unittest.TestCase):

@@ -1,5 +1,8 @@
 import tkinter as tk
-import Utils.crud_csv as crud
+from tkinter import ttk
+import Utils.crud_functionalities as crud
+import csv
+
 
 # setting size colors and fonts
 window_width = 750
@@ -8,6 +11,7 @@ window_bar_color = "546A7B"
 button_color = "#C5D9E2"
 button_font_large = "bold"
 pad_y = 10
+icon = "C:\\Users\marti\OneDrive\\1. Documenten\\4. Studie\Haagse Hogeschool\ICT - deeltijd\Semester 1\Introduction Python\Eindopdracht - Biker - Huurovereenkomst\Biker-huurovereenkomsten\Icons\\biker_logo.ico"
 
 
 # Create a function to center at the middel of your screen
@@ -27,21 +31,20 @@ class StartWindow(tk.Frame):
         self.root = master
         self.root.title("Home of Biker -- Rent your Bike")
         self.root.resizable(False, False)
-        self.root.iconbitmap(
-            'C:\\Users\marti\OneDrive\\1. Documenten\\4. Studie\Haagse Hogeschool\ICT - deeltijd\Semester 1\Introduction Python\Eindopdracht - Biker - Huurovereenkomst\Biker-huurovereenkomsten\Icons\\biker_logo.ico')
+        self.root.iconbitmap(icon)
         center_window(window_width, window_height)
 
         new_reservation_button = tk.Button(self, text="Nieuwe Reservering", font=button_font_large, width=15, padx=30,
                                            pady=30, bg=button_color, command=self.go_to_new_reservation_window)
-        new_reservation_button.grid(row=0, column=0, padx=10, pady=150)
+        new_reservation_button.grid(row=0, column=0, padx=35, pady=150)
 
         update_reservation_button = tk.Button(self, text="Wijzig reservering", font=button_font_large, width=15,
                                               padx=30, pady=30, bg=button_color,
                                               command=self.go_to_update_reservation_window)
-        update_reservation_button.grid(row=0, column=2, pady=150)
+        update_reservation_button.grid(row=0, column=2, padx=30, pady=150)
 
         overview_reservations_button = tk.Button(self, text="Overzicht reserveringen", font=button_font_large, width=15,
-                                                 padx=30, pady=30, bg=button_color)
+                                                 padx=30, pady=30, bg=button_color, command=self.go_to_overview_window)
         overview_reservations_button.grid(row=2, column=1, pady=25)
         self.grid()
 
@@ -56,7 +59,9 @@ class StartWindow(tk.Frame):
         UpdateReservationWindow(self.root)
 
     def go_to_overview_window(self):
-        pass
+        delete_widgets(self)
+        self.destroy()
+        ViewAllReservationsWindow(self.root)
 
 
 class NewReservationWindow(tk.Frame):
@@ -65,12 +70,10 @@ class NewReservationWindow(tk.Frame):
         self.root = master
         self.root.title("NEW Reservation -- Home of Biker -- Rent your Bike")
         self.root.resizable(False, False)
-        self.root.iconbitmap(
-            'C:\\Users\marti\OneDrive\\1. Documenten\\4. Studie\Haagse Hogeschool\ICT - deeltijd\Semester 1\Introduction Python\Eindopdracht - Biker - Huurovereenkomst\Biker-huurovereenkomsten\Icons\\biker_logo.ico')
+        self.root.iconbitmap(icon)
         center_window(window_width, window_height)
-        self.to_home_button = tk.Button(self, text="Home", font=button_font_large, width=5, padx=5, pady=5, bg=button_color,
-                                   command=self.go_to_home)
-        self.to_home_button.grid(row=0, column=3, padx=10, pady=10)
+        self.to_home_button = tk.Button(self, text="Home", font=button_font_large, width=10, padx=5, pady=5, bg=button_color, command=self.to_home)
+        self.to_home_button.grid(row=0, column=3, padx=10, pady=10, sticky="we")
 
         rows_above = 0
         self.create_reservation_fields(rows_above)
@@ -171,11 +174,10 @@ class NewReservationWindow(tk.Frame):
 
         self.grid()
 
-    def go_to_home(self):
+    def to_home(self):
         delete_widgets(self)
         self.destroy()
         StartWindow(self.root)
-
 
     def save_to_csv(self):
         crud.write_to_csv(self)
@@ -186,8 +188,7 @@ class UpdateReservationWindow(tk.Frame):
         self.root = master
         self.root.title("UPDATE Reservation -- Home of Biker -- Rent your Bike")
         self.root.resizable(False, False)
-        self.root.iconbitmap(
-            'C:\\Users\marti\OneDrive\\1. Documenten\\4. Studie\Haagse Hogeschool\ICT - deeltijd\Semester 1\Introduction Python\Eindopdracht - Biker - Huurovereenkomst\Biker-huurovereenkomsten\Icons\\biker_logo.ico')
+        self.root.iconbitmap(icon)
         center_window(window_width, window_height)
 
         self.to_home_button = tk.Button(self, text="Home", font=button_font_large, width=10, padx=5, pady=5, bg=button_color, command=self.to_home)
@@ -217,14 +218,67 @@ class UpdateReservationWindow(tk.Frame):
 
     def delete_data(self):
         crud.delete_row(self)
-        NewReservationWindow.go_to_home(self)
+        self.to_home()
 
     def update_data(self):
         crud.update(self)
-        NewReservationWindow.go_to_home(self)
 
     def to_home(self):
-        NewReservationWindow.go_to_home(self)
+        delete_widgets(self)
+        self.destroy()
+        StartWindow(self.root)
+
+class ViewAllReservationsWindow(tk.Frame):
+    def __init__(self, master):
+        super().__init__()
+        self.root = master
+        self.root.title("VIEW Reservations -- Home of Biker -- Rent your Bike")
+        self.root.resizable(False, False)
+        self.root.iconbitmap(icon)
+        center_window(window_width, window_height)
+        root.columnconfigure(3, weight=1)
+        root.rowconfigure(30, weight=1)
+
+        self.to_home_button = tk.Button(self, text="Home", font=button_font_large, width=10, padx=5, pady=5, bg=button_color, command=self.to_home)
+        self.to_home_button.grid(row=0, padx=10, pady=10, sticky="we")
+
+        self.tree = ttk.Treeview(root, show="headings", )
+        self.tree.grid(row=2, column=0, padx=20, pady=20, columnspan=4, sticky="nsew")
+
+        self.y_scroll = ttk.Scrollbar(root, orient="vertical")
+        self.y_scroll.grid(row=2, column=3, sticky="nse")
+        self.y_scroll.configure(command=self.tree.yview)
+
+        self.x_scroll = ttk.Scrollbar(root, orient="horizontal")
+        self.x_scroll.grid(column=0, columnspan=25, sticky="esw")
+        self.x_scroll.configure(command=self.tree.xview)
+
+        self.tree.configure(yscrollcommand=self.y_scroll.set, xscrollcommand=self.x_scroll.set)
+
+        csv_file = "Database_biker.csv"
+
+        with open(csv_file, 'r', newline='') as file:
+            reader = csv.reader(file)
+            headers = next(reader)
+
+            self.tree["columns"] = headers
+            for col in headers:
+                self.tree.heading(col, text=col)
+                self.tree.column(col, width=150)
+
+            for row in reader:
+                self.tree.insert("", "end", values=row)
+
+        file.close()
+        self.grid()
+
+    def to_home(self):
+        delete_widgets(self)
+        self.tree.destroy()
+        self.x_scroll.destroy()
+        self.y_scroll.destroy()
+        self.destroy()
+        StartWindow(self.root)
 
 root = tk.Tk()
 StartWindow(root)
