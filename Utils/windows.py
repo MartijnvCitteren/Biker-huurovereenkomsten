@@ -202,7 +202,7 @@ class UpdateReservationWindow(tk.Frame):
         search_email_button.grid(row=1, column=3, padx= 10, pady=25, sticky="we")
 
         rows_above = 1
-        NewReservationWindow.create_reservation_fields(self,1)
+        NewReservationWindow.create_reservation_fields(self,rows_above)
 
         self.delete_button = tk.Button(self, text="Verwijder", font=button_font_large, width=10, padx=5, pady=5,
                                                  bg='#B06D74', command=self.delete_data)
