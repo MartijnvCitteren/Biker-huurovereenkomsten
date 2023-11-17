@@ -1,10 +1,13 @@
 # all functionalities to Create, Read, Update and delte
 import csv
-import Utils.valid_input_functionalities as valid
-import Utils.windows as windows
 import pandas as pd
 from tkinter import messagebox
 import Utils.generate_values_functionalities as generate
+import Utils.reservering as reservering
+import Utils.valid_input_functionalities as valid
+import Utils.windows as windows
+
+
 
 # CSV file
 csv_file = "Database_biker.csv"
@@ -32,27 +35,9 @@ headers = ["Klantnummer",
            ]
 
 def get_all_input(self):
-    input_dict = {"Klantnummer": generate.create_id(csv_file),
-                  "e-mail": valid.entry_field_is_email(self.email_entry.get()),
-                  "Voornaam": valid.entry_field_is_not_empty(self.first_name_entry.get()),
-                  "Achternaam": valid.entry_field_is_not_empty(self.family_name_entry.get()),
-                  "Straat": valid.entry_field_is_not_empty(self.street_name_entry.get()),
-                  "Huisnummer": valid.entry_field_is_number(self.adress_num_entry.get()),
-                  "Postcode": valid.entry_field_is_zipcode(self.zip_code_entry.get()),
-                  "Woonplaats": valid.entry_field_is_not_empty(self.city_entry.get()),
-                  "Herenfiets aantal": valid.entry_bike_rent_is_number(self.num_man_bikes_entry.get()),
-                  "Vrouwenfiets aantal": valid.entry_bike_rent_is_number(self.num_woman_bikes_entry.get()),
-                  "E-bike aantal": valid.entry_bike_rent_is_number(self.num_E_bikes_entry.get()),
-                  "Kinderzitjes aantal": valid.entry_bike_rent_is_number(self.num_child_seat_entry.get()),
-                  "Helmen aantal": valid.entry_bike_rent_is_number(self.num_helmets_entry.get()),
-                  "Verzekeringsnummer": valid.entry_field_is_number(self.insurance_entry.get()),
-                  "Medewerkersnummer": valid.entry_field_is_number(self.employee_entry.get()),
-                  "Start-datum huur": valid.entry_is_date(self.start_rent_entry.get()),
-                  "Eind-datum huur": valid.entry_is_date(self.end_rent_entry.get()),
-                  "Aantal huur dagen": generate.rental_periode_in_days(self),
-                  "Reserveringsdatum": valid.entry_is_date(self.reservation_date_entry.get())
-                  }
-    return input_dict
+    reservering.Reservation.set_new_reservation(self)
+    dict = reservering.Reservation.get_reservation_dict_with_out_validation(self)
+    return dict
 
 def is_input_valid(self):
     input_dict = get_all_input(self)
@@ -94,6 +79,7 @@ def search_reservation(self):
                     found = True
 
             if found:
+                file.close()
                 messagebox.showinfo("Reservering gevonden", "De gegevens worden geladen")
                 return dict
 
@@ -165,7 +151,6 @@ def delete_row(self):
 
     messagebox.showinfo("Gegevens verwijdert", "Reservering is succesvol verwijdert")
 
-
 def update(self):
     id_to_update = int((indentify_similar_row_in_csv(self)[0]))
     row_to_overwrite = int((indentify_similar_row_in_csv(self)[1]))
@@ -174,7 +159,7 @@ def update(self):
     if input_is_valid:
         df = pd.read_csv(csv_file)
 
-        df.loc[row_to_overwrite, "Klantnummer"] = generate.create_id(csv_file)
+        df.loc[row_to_overwrite, "Klantnummer"] = id_to_update
         df.loc[row_to_overwrite, "e-mail"] = valid.entry_field_is_email(self.email_entry.get())
         df.loc[row_to_overwrite, "Voornaam"] = valid.entry_field_is_not_empty(self.first_name_entry.get())
         df.loc[row_to_overwrite, "Achternaam"] = valid.entry_field_is_not_empty(self.family_name_entry.get())
